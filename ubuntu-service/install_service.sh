@@ -9,6 +9,10 @@ set -o nounset
 # Set magic variables for current file & dir
 __this_directory="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Stop and remove old service
+service jupyterhub stop   || true
+rm /etc/init.d/jupyterhub || true
+
 # Install the jupyterhub service file
 cp ${__this_directory}/jupyterhub /etc/init.d/jupyterhub
 chmod +x /etc/init.d/jupyterhub
