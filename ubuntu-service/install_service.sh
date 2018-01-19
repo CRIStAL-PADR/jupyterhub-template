@@ -18,7 +18,7 @@ cp ${__this_directory}/jupyterhub /etc/init.d/jupyterhub
 chmod +x /etc/init.d/jupyterhub
 
 # Install the configuration file
-mkdir /etc/jupyterhub
+mkdir -p /etc/jupyterhub
 cp jupyterhub_config.py /etc/jupyterhub/
 
 # Start jupyterhub on boot
