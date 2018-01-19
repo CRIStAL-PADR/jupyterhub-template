@@ -214,10 +214,10 @@
 #c.JupyterHub.logo_file = ''
 
 ## File to write PID Useful for daemonizing jupyterhub.
-#c.JupyterHub.pid_file = ''
+c.JupyterHub.pid_file = 'JUPYTERHUB_PID'
 
 ## The public facing port of the proxy
-#c.JupyterHub.port = 8000
+c.JupyterHub.port = 80
 
 ## DEPRECATED since version 0.8 : Use ConfigurableHTTPProxy.api_url
 #c.JupyterHub.proxy_api_ip = ''
