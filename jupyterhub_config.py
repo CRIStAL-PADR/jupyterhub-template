@@ -750,6 +750,10 @@ c.Authenticator.auto_login = True
 
 from oauthenticator.github import GitHubOAuthenticator
 c.JupyterHub.authenticator_class = GitHubOAuthenticator
+c.JupyterHub.authenticator_class.client_id = ""
+c.JupyterHub.authenticator_class.client_secret = ""
+c.JupyterHub.authenticator_class.oauth_callback_url = ""
+
 
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
 
