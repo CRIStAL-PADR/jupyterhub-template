@@ -4,6 +4,18 @@
 # Application(SingletonConfigurable) configuration
 #------------------------------------------------------------------------------
 
+import os
+pjoin = os.path.join
+
+runtime_dir = os.path.join('/srv/jupyterhub')
+ssl_dir = pjoin(runtime_dir, 'ssl')
+if not os.path.exists(ssl_dir):
+    os.makedirs(ssl_dir)
+
+c.JupyterHub.port = 443
+c.JupyterHub.ssl_key = pjoin(ssl_dir, 'privkey.pem')
+c.JupyterHub.ssl_cert = pjoin(ssl_dir, 'fullchain.pem')
+
 ## This is an application.
 
 ## The date format used by logging formatters for %(asctime)s
@@ -136,6 +148,7 @@
 
 ## File in which to store the cookie secret.
 #c.JupyterHub.cookie_secret_file = 'jupyterhub_cookie_secret'
+c.JupyterHub.cookie_secret_file = pjoin(runtime_dir, 'cookie_secret')
 
 ## The location of jupyterhub data files (e.g. /usr/local/share/jupyter/hub)
 #c.JupyterHub.data_files_path = '/Users/guille/Projects/Sigma/jupyterhubtest/hubenv/share/jupyter/hub'
@@ -146,6 +159,7 @@
 
 ## url for the database. e.g. `sqlite:///jupyterhub.sqlite`
 #c.JupyterHub.db_url = 'sqlite:///jupyterhub.sqlite'
+c.JupyterHub.db_url = pjoin(runtime_dir, 'jupyterhub.sqlite')
 
 ## log all database transactions. This has A LOT of output
 #c.JupyterHub.debug_db = False
@@ -217,7 +231,7 @@ c.JupyterHub.extra_log_file = '/var/log/jupyterhub.log'
 c.JupyterHub.pid_file = 'JUPYTERHUB_PID'
 
 ## The public facing port of the proxy
-c.JupyterHub.port = 80
+#c.JupyterHub.port = 80
 
 ## DEPRECATED since version 0.8 : Use ConfigurableHTTPProxy.api_url
 #c.JupyterHub.proxy_api_ip = ''
@@ -482,6 +496,14 @@ c.JupyterHub.port = 80
 #  
 #  If the single user server tries to allocate more memory than this, it will
 #  fail. There is no guarantee that the single-user notebook server will be able
+
+
+
+
+
+
+
+
 #  to allocate this much memory - only that it can not allocate more than this.
 #  
 #  This needs to be supported by your spawner for it to work.
@@ -750,9 +772,9 @@ c.Authenticator.auto_login = True
 
 from oauthenticator.github import GitHubOAuthenticator
 c.JupyterHub.authenticator_class = GitHubOAuthenticator
-c.JupyterHub.authenticator_class.client_id = ""
-c.JupyterHub.authenticator_class.client_secret = ""
-c.JupyterHub.authenticator_class.oauth_callback_url = ""
+c.JupyterHub.authenticator_class.client_id = "aa1bac45ab1126a9cd2f"
+c.JupyterHub.authenticator_class.client_secret = "9a847f2d0f5b56bff6ab32c04e6e94bc3b2abab8"
+c.JupyterHub.authenticator_class.oauth_callback_url = "https://demo.guille.ovh/hub/oauth_callback"
 
 
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
@@ -760,3 +782,5 @@ c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
 
 from jupyter_client.localinterfaces import public_ips
 c.JupyterHub.hub_ip = public_ips()[0]
+c.DockerSpawner.image = 'demo:latest'
+c.DockerSpawner.notebook_dir = '/app'
