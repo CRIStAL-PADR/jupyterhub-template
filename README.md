@@ -55,3 +55,8 @@ sudo docker pull jupyterhub/singleuser:0.8
 
 # Create a docker from your dockerfile
 docker build . -t demo
+
+# Plan B: how to start locally the jupyter notebook
+
+docker pull rbardenet/machin:1.2
+docker run -p 80:8888 rbardenet/machin:1.2
